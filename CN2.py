@@ -11,6 +11,7 @@ class CN2:
         self.min_significance = min_significance
         self.E = None
         self.rule_list = []
+        self.bins = {}
 
     def fit(self, X, y, n_bins=4, fixed_bin_size=False):
         self.E = X.copy()
@@ -130,6 +131,6 @@ class CN2:
                 n_bins = len(self.E[c].value_counts())
 
             if not fixed_bin_size:
-                self.E[c] = pd.cut(self.E[c], n_bins, precision=precision, duplicates='drop')
+                self.E[c], self.bins[c] = pd.cut(self.E[c], n_bins, precision=precision, retbins=True, duplicates='drop')
             else:
-                self.E[c] = pd.qcut(self.E[c], n_bins, precision=precision, duplicates='drop')
+                self.E[c], self.bins[c] = pd.qcut(self.E[c], n_bins, precision=precision, retbins=True, duplicates='drop')
