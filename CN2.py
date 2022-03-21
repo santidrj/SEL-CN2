@@ -25,7 +25,7 @@ class CN2:
 
         self._init_selectors()
 
-        default_class = self.E['class'].value_counts().idxmax()
+        default_rule_class = self.E['class'].value_counts().idxmax()
 
         n = len(self.E.index)
         best_complex, best_cpx_covered_examples, best_cpx_most_common_class, best_cpx_precision = self._find_best_complex()
@@ -37,7 +37,27 @@ class CN2:
 
             best_complex, best_cpx_covered_examples, best_cpx_most_common_class, best_cpx_precision = self._find_best_complex()
 
-        self.rule_list.append((None, default_class, 0, 0))
+        n = len(self.E.index)
+        covered_examples = self.E['class'].loc[self.E['class'].isin(list(default_rule_class))]
+        if covered_examples.empty:
+            default_rule_coverage = 0
+            default_rule_precision = 0
+        else:
+            default_rule_coverage = covered_examples.value_counts() / n
+            default_rule_precision = self.E['class'].value_counts(sort=False, normalize=True).loc[default_rule_class]
+        self.rule_list.append((None, default_rule_class, default_rule_precision, default_rule_coverage))
+
+    def print_rules(self):
+        for rule, cls, precision, coverage in self.rule_list[:-1]:
+            predicates = ''
+            for f, v in rule.items():
+                predicates += f' {f} = {v} AND'
+            predicates = predicates[:-4]  # remove final AND
+            print(f'IF{predicates} THEN {cls} [rule coverage = {coverage:.4f}, precision = {precision:.4f}]')
+
+        default_rule = self.rule_list[-1]
+        print(
+            f'DEFAULT CLASS IS {default_rule[1]} [rule coverage = {default_rule[2]:.4f}, precision = {default_rule[3]:.4f}]')
 
     def _init_selectors(self):
         self.selectors = []
@@ -118,10 +138,10 @@ class CN2:
     def _discretize(self, n_bins=4, fixed_bin_size=False):
         int_cols = self.E.select_dtypes(include=np.int).columns
         float_cols = self.E.select_dtypes(include=np.float).columns
-        self.discretize_columns(int_cols, n_bins, fixed_bin_size)
-        self.discretize_columns(float_cols, n_bins, fixed_bin_size, 2)
+        self._discretize_columns(int_cols, n_bins, fixed_bin_size)
+        self._discretize_columns(float_cols, n_bins, fixed_bin_size, 2)
 
-    def discretize_columns(self, columns, n_bins, fixed_bin_size, precision=0):
+    def _discretize_columns(self, columns, n_bins, fixed_bin_size, precision=0):
         for c in columns:
             if len(self.E[c].value_counts()) < n_bins:
                 warnings.warn(
@@ -131,6 +151,8 @@ class CN2:
                 n_bins = len(self.E[c].value_counts())
 
             if not fixed_bin_size:
-                self.E[c], self.bins[c] = pd.cut(self.E[c], n_bins, precision=precision, retbins=True, duplicates='drop')
+                self.E[c], self.bins[c] = pd.cut(self.E[c], n_bins, precision=precision, retbins=True,
+                                                 duplicates='drop')
             else:
-                self.E[c], self.bins[c] = pd.qcut(self.E[c], n_bins, precision=precision, retbins=True, duplicates='drop')
+                self.E[c], self.bins[c] = pd.qcut(self.E[c], n_bins, precision=precision, retbins=True,
+                                                  duplicates='drop')
