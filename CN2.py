@@ -13,7 +13,7 @@ class CN2:
         self.rule_list = []
         self.bins = {}
 
-    def fit(self, X, y, n_bins=4, fixed_bin_size=False):
+    def fit(self, X, y, n_bins=4, fixed_bin_size=True):
         self._validate_fit_input(X, y)
 
         self._discretize(n_bins, fixed_bin_size)
@@ -57,9 +57,9 @@ class CN2:
         else:
             self.E = pd.DataFrame(X)
         if isinstance(y, pd.DataFrame):
-            self.E['class'] = y.copy()
+            self.E['class'] = y.copy().astype(str)
         else:
-            self.E['class'] = pd.Series(y)
+            self.E['class'] = pd.Series(y, dtype=str)
         self.E.reset_index(drop=True, inplace=True)
 
     def predict(self, X):
