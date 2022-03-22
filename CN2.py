@@ -14,8 +14,7 @@ class CN2:
         self.bins = {}
 
     def fit(self, X, y, n_bins=4, fixed_bin_size=False):
-        self.E = X.copy()
-        self.E['class'] = y.copy()
+        self._validate_fit_input(X, y)
 
         self._discretize(n_bins, fixed_bin_size)
 
@@ -52,9 +51,19 @@ class CN2:
         # default_rule_precision = X['class'].value_counts(sort=False, normalize=True).loc[default_rule_class]
         self.rule_list.append((None, default_rule_class, default_rule_precision, default_rule_coverage))
 
+    def _validate_fit_input(self, X, y):
+        if isinstance(X, pd.DataFrame):
+            self.E = X.copy()
+        else:
+            self.E = pd.DataFrame(X)
+        if isinstance(y, pd.DataFrame):
+            self.E['class'] = y.copy()
+        else:
+            self.E['class'] = pd.Series(y)
+        self.E.reset_index(drop=True, inplace=True)
 
     def predict(self, X):
-        x = X.copy()
+        x = self._validate_input(X)
         y = pd.Series([self.rule_list[-1][1]]*len(x.index))
 
         # Discretize columns with the same bins as in the training data.
@@ -69,6 +78,13 @@ class CN2:
 
         return np.array(y)
 
+    def _validate_input(self, X):
+        if isinstance(X, pd.DataFrame):
+            x = X.copy()
+            x.reset_index(drop=True, inplace=True)
+        else:
+            x = pd.DataFrame(X)
+        return x
 
     def print_rules(self):
         for rule, cls, precision, coverage in self.rule_list[:-1]:
