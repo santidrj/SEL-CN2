@@ -37,15 +37,38 @@ class CN2:
 
             best_complex, best_cpx_covered_examples, best_cpx_most_common_class, best_cpx_precision = self._find_best_complex()
 
-        n = len(self.E.index)
-        covered_examples = self.E['class'].loc[self.E['class'].isin(list(default_rule_class))]
-        if covered_examples.empty:
-            default_rule_coverage = 0
-            default_rule_precision = 0
-        else:
-            default_rule_coverage = covered_examples.value_counts() / n
+        # n = len(self.E.index)
+        covered_examples = len(self.E.index)
+        # if covered_examples.empty:
+        #     default_rule_coverage = 0
+        #     default_rule_precision = 0
+        # else:
+        default_rule_coverage = covered_examples / n
+        default_rule_precision = self.E['class'].value_counts(sort=False, normalize=True)
+        if default_rule_class in default_rule_precision.keys():
             default_rule_precision = self.E['class'].value_counts(sort=False, normalize=True).loc[default_rule_class]
+        else:
+            default_rule_precision = 0
+        # default_rule_precision = X['class'].value_counts(sort=False, normalize=True).loc[default_rule_class]
         self.rule_list.append((None, default_rule_class, default_rule_precision, default_rule_coverage))
+
+
+    def predict(self, X):
+        x = X.copy()
+        y = pd.Series([self.rule_list[-1][1]]*len(x.index))
+
+        # Discretize columns with the same bins as in the training data.
+        for c in x.columns:
+            if c in self.bins.keys():
+                x[c] = pd.cut(x[c], self.bins[c])
+
+        for cpx, cls, _, _ in self.rule_list[:-1]:
+            covered_examples = self._get_covered_examples(x, cpx)
+            y.loc[covered_examples.index] = cls
+            x.drop(covered_examples.index, inplace=True)
+
+        return np.array(y)
+
 
     def print_rules(self):
         for rule, cls, precision, coverage in self.rule_list[:-1]:
@@ -53,11 +76,11 @@ class CN2:
             for f, v in rule.items():
                 predicates += f' {f} = {v} AND'
             predicates = predicates[:-4]  # remove final AND
-            print(f'IF{predicates} THEN {cls} [rule coverage = {coverage:.4f}, precision = {precision:.4f}]')
+            print(f'IF{predicates} THEN {cls} [rule coverage = {coverage:.3f}, precision = {precision:.3f}]')
 
         default_rule = self.rule_list[-1]
         print(
-            f'DEFAULT CLASS IS {default_rule[1]} [rule coverage = {default_rule[2]:.4f}, precision = {default_rule[3]:.4f}]')
+            f'IF * THEN {default_rule[1]} [rule coverage = {default_rule[3]:.3f}, precision = {default_rule[2]:.3f}]\n')
 
     def _init_selectors(self):
         self.selectors = []
@@ -79,7 +102,7 @@ class CN2:
             significance_list = []
 
             for cpx in new_star:
-                E_prime = self.E.loc[self.E[cpx.keys()].isin(cpx.values()).all(axis=1), :]
+                E_prime = self._get_covered_examples(self.E, cpx)
                 covered_examples = E_prime.index
 
                 if not E_prime.empty:
@@ -87,10 +110,9 @@ class CN2:
 
                     cpx_entropy = entropy(np.array(covered_prob_distribution))
                     # Todo: check how to compute class probability distribution
-                    class_prob_distribution = self.E['class'].loc[
-                        self.E['class'].isin(covered_prob_distribution.keys())].value_counts(sort=False, normalize=True)
-                    # class_prob_distribution = self.E['class'].value_counts(sort=False, normalize=True).loc[
-                    #     covered_prob_distribution.keys()]
+                    # class_prob_distribution = self.E['class'].loc[
+                    #     self.E['class'].isin(covered_prob_distribution.keys())].value_counts(sort=False, normalize=True)
+                    class_prob_distribution = self.E['class'].value_counts(sort=False, normalize=True)
 
                     cpx_significance = 2 * np.sum(
                         covered_prob_distribution * np.log(covered_prob_distribution / class_prob_distribution))
@@ -116,10 +138,14 @@ class CN2:
             star = aux_df.cpx.to_list()
 
             # If star is empty exit the loop
-            if not star or (best_entropy == 0 and best_significance >= 1):
+            # if not star or (best_entropy == 0 and best_significance >= 1):
+            if not star:
                 break
 
         return best_cpx, best_cpx_covered_examples, best_cpx_most_common_class, best_cpx_precision
+
+    def _get_covered_examples(self, x, cpx):
+        return x.loc[x[cpx.keys()].isin(cpx.values()).all(axis=1), :]
 
     def _specialize_star(self, star):
         if star:
