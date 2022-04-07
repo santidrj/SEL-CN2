@@ -1,0 +1,8 @@
+IF sepal_length = (4.29, 4.9] THEN setosa [rule coverage = 0.167, precision = 0.900]
+IF petal_length = (4.35, 4.8] THEN versicolor [rule coverage = 0.125, precision = 0.867]
+IF sepal_length = (4.9, 5.1] THEN setosa [rule coverage = 0.117, precision = 0.857]
+IF sepal_length = (6.71, 7.7] THEN virginica [rule coverage = 0.092, precision = 0.909]
+IF petal_width = (1.5, 1.8] THEN virginica [rule coverage = 0.083, precision = 0.900]
+IF sepal_length = (5.5, 5.8] THEN versicolor [rule coverage = 0.083, precision = 0.800]
+IF petal_length = (4.8, 5.12] THEN virginica [rule coverage = 0.075, precision = 0.889]
+IF * THEN virginica [rule coverage = 0.258, precision = 0.452]
