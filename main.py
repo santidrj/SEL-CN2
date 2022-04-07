@@ -9,7 +9,7 @@ from CN2 import CN2
 from datasets import load_iris, load_heart
 
 if __name__ == '__main__':
-    cn = CN2(5, 0.2)
+    cn = CN2(5, 0.5)
     print("""
 #####################
 # LOAD IRIS DATASET #
@@ -22,8 +22,7 @@ if __name__ == '__main__':
     pred_class = cn.predict(x_test)
     print(f'Classification accuracy: {accuracy_score(y_test, pred_class.astype(y_test.dtype))}')
 
-
-    cn = CN2(5, 0.2)
+    cn = CN2(5, 0.5)
     print("""
 ######################
 # LOAD HEART DATASET #
@@ -35,4 +34,3 @@ if __name__ == '__main__':
     cn.print_rules()
     pred_class = cn.predict(x_test)
     print(f'Classification accuracy: {accuracy_score(y_test, pred_class.astype(y_test.dtype))}')
-

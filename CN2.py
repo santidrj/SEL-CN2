@@ -10,6 +10,7 @@ class CN2:
         self.max_star_size = max_star_size
         self.min_significance = min_significance
         self.E = None
+        self.training = None
         self.rule_list = []
         self.bins = {}
 
@@ -22,6 +23,7 @@ class CN2:
         for c in self.E.columns:
             self.E[c] = self.E[c].replace('?', self.E[c].value_counts().idxmax())
 
+        self.training = self.E.copy()
         self._init_selectors()
 
         default_rule_class = self.E['class'].value_counts().idxmax()
@@ -64,7 +66,7 @@ class CN2:
 
     def predict(self, X):
         x = self._validate_input(X)
-        y = pd.Series([self.rule_list[-1][1]]*len(x.index))
+        y = pd.Series([self.rule_list[-1][1]] * len(x.index))
 
         # Discretize columns with the same bins as in the training data.
         for c in x.columns:
@@ -128,7 +130,12 @@ class CN2:
                     # Todo: check how to compute class probability distribution
                     # class_prob_distribution = self.E['class'].loc[
                     #     self.E['class'].isin(covered_prob_distribution.keys())].value_counts(sort=False, normalize=True)
-                    class_prob_distribution = self.E['class'].value_counts(sort=False, normalize=True)
+                    # class_prob_distribution = self.training['class'].sample(len(covered_examples), replace=False).value_counts(
+                    #     sort=False, normalize=True)
+                    class_prob_distribution = self.training['class'].loc[
+                        self.training['class'].isin(covered_prob_distribution.keys())].sample(len(covered_examples),
+                                                                                              replace=False).value_counts(
+                        sort=False, normalize=True)
 
                     cpx_significance = 2 * np.sum(
                         covered_prob_distribution * np.log(covered_prob_distribution / class_prob_distribution))
