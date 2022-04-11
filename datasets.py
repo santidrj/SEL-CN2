@@ -2,6 +2,7 @@ import os
 
 import numpy as np
 import pandas as pd
+from scipy.io import arff
 
 DATA_DIR = "datasets"
 
@@ -31,3 +32,11 @@ def load_heart():
     )
     df["HeartDisease"] = df["HeartDisease"].map({0: "No", 1: "Yes"})
     return df.drop(columns="HeartDisease"), df["HeartDisease"]
+
+
+def load_rice():
+    data, meta = arff.loadarff(os.path.join(DATA_DIR, 'Rice_Cammeo_Osmancik.arff'))
+    df = pd.DataFrame(data)
+    class_col = 'Class'
+    df[class_col] = df[class_col].str.decode("utf-8")
+    return df.drop(columns=class_col), df[class_col]

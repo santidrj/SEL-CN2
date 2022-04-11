@@ -70,8 +70,8 @@ class CN2:
         if default_rule_class in default_rule_precision.keys():
             default_rule_precision = (
                 self.E["class"]
-                    .value_counts(sort=False, normalize=True)
-                    .loc[default_rule_class]
+                .value_counts(sort=False, normalize=True)
+                .loc[default_rule_class]
             )
         else:
             default_rule_precision = 0
@@ -79,17 +79,6 @@ class CN2:
         self.rule_list.append(
             (None, default_rule_class, default_rule_precision, default_rule_coverage)
         )
-
-    def _validate_fit_input(self, X, y):
-        if isinstance(X, pd.DataFrame):
-            self.E = X.copy()
-        else:
-            self.E = pd.DataFrame(X)
-        if isinstance(y, pd.DataFrame):
-            self.E["class"] = y.copy().astype(str)
-        else:
-            self.E["class"] = pd.Series(y, dtype=str)
-        self.E.reset_index(drop=True, inplace=True)
 
     def predict(self, X):
         x = self._validate_input(X)
@@ -107,6 +96,64 @@ class CN2:
 
         return np.array(y)
 
+    def print_rules(self):
+        rules = self.rules_to_string()
+        print(rules)
+
+    def save_rules(self, filename, format="text"):
+        if format not in ["text", "latex"]:
+            raise ValueError("Invalid format")
+
+        if not os.path.exists("results"):
+            os.mkdir("results")
+        if format == "text":
+            file = os.path.join("results", f"{filename}.txt")
+        else:
+            file = os.path.join("results", f"{filename}.tex")
+
+        with open(file, "w") as f:
+            f.write(self.rules_to_string(format))
+
+    def rules_to_string(self, format="text"):
+        if format not in ["text", "latex"]:
+            raise ValueError("Invalid format")
+
+        rules = ""
+        for rule, cls, precision, coverage in sorted(
+            self.rule_list[:-1], key=lambda tup: tup[3], reverse=True
+        ):
+            predicates = ""
+            for f, v in rule.items():
+                if format == "text":
+                    predicates += f" {f} = {v} AND"
+                else:
+                    predicates += f" {f} = {v} $\\land$"
+            if format == "text":
+                predicates = predicates[:-4]  # remove final AND
+            else:
+                predicates = predicates[:-8]  # remove final $\\land$
+            if format == "text":
+                rules += f"IF{predicates} THEN {cls} [rule coverage = {coverage:.3f}, precision = {precision:.3f}]\n"
+            else:
+                rules += f"IF{predicates} $\\implies$ {cls} [{coverage:.3f}, {precision:.3f}]\n\n"
+        default_rule = self.rule_list[-1]
+        if format == "text":
+            rules += f"IF * THEN {default_rule[1]} [rule coverage = {default_rule[3]:.3f}, precision = {default_rule[2]:.3f}]\n"
+        else:
+            rules += f"IF * $\\implies$ {default_rule[1]} [{default_rule[3]:.3f}, {default_rule[2]:.3f}]\n"
+        return rules
+
+    def _validate_fit_input(self, X, y):
+        if isinstance(X, pd.DataFrame):
+            self.E = X.copy()
+        else:
+            self.E = pd.DataFrame(X)
+        if isinstance(y, pd.DataFrame):
+            self.E["class"] = y.copy().astype(str)
+        else:
+            self.E["class"] = pd.Series(y, dtype=str)
+        self.E.reset_index(drop=True, inplace=True)
+
     def _validate_input(self, X):
         if isinstance(X, pd.DataFrame):
             x = X.copy()
@@ -114,51 +161,6 @@ class CN2:
         else:
             x = pd.DataFrame(X)
         return x
-
-    def print_rules(self):
-        rules = self.rules_to_string()
-        print(rules)
-
-    def save_rules(self, filename, format='text'):
-        if format not in ['text', 'latex']:
-            raise ValueError('Invalid format')
-
-        if not os.path.exists('results'):
-            os.mkdir('results')
-        if format == 'text':
-            file = os.path.join('results', f'{filename}.txt')
-        else:
-            file = os.path.join('results', f'{filename}.tex')
-
-        with open(file, 'w') as f:
-            f.write(self.rules_to_string(format))
-
-    def rules_to_string(self, format='text'):
-        if format not in ['text', 'latex']:
-            raise ValueError('Invalid format')
-
-        rules = ""
-        for rule, cls, precision, coverage in sorted(self.rule_list[:-1], key=lambda tup: tup[3], reverse=True):
-            predicates = ""
-            for f, v in rule.items():
-                if format == 'text':
-                    predicates += f" {f} = {v} AND"
-                else:
-                    predicates += f" {f} = {v} $\\land$"
-            if format == 'text':
-                predicates = predicates[:-4]  # remove final AND
-            else:
-                predicates = predicates[:-8]  # remove final $\\land$
-            if format == 'text':
-                rules += f"IF{predicates} THEN {cls} [rule coverage = {coverage:.3f}, precision = {precision:.3f}]\n"
-            else:
-                rules += f"IF{predicates} $\\implies$ {cls} [{coverage:.3f}, {precision:.3f}]\n\n"
-        default_rule = self.rule_list[-1]
-        if format == 'text':
-            rules += f"IF * THEN {default_rule[1]} [rule coverage = {default_rule[3]:.3f}, precision = {default_rule[2]:.3f}]\n"
-        else:
-            rules += f"IF * $\\implies$ {default_rule[1]} [{default_rule[3]:.3f}, {default_rule[2]:.3f}]\n"
-        return rules
 
     def _init_selectors(self):
         self.selectors = []
@@ -196,13 +198,13 @@ class CN2:
                     #     sort=False, normalize=True)
                     class_prob_distribution = (
                         self.training["class"]
-                            .loc[
+                        .loc[
                             self.training["class"].isin(
                                 covered_prob_distribution.keys()
                             )
                         ]
-                            .sample(len(covered_examples), replace=False)
-                            .value_counts(sort=False, normalize=True)
+                        .sample(len(covered_examples), replace=False)
+                        .value_counts(sort=False, normalize=True)
                     )
 
                     cpx_significance = 2 * np.sum(
@@ -214,8 +216,8 @@ class CN2:
 
                     if cpx_significance >= self.min_significance:
                         if (
-                                cpx_entropy < best_entropy
-                                and cpx_significance >= best_significance
+                            cpx_entropy < best_entropy
+                            and cpx_significance >= best_significance
                         ):
                             best_cpx = cpx
                             best_entropy = cpx_entropy
