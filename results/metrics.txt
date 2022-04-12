@@ -1,13 +1,15 @@
 Iris metrics
-Average training time 1.016s
-Best classification accuracy: 0.7
-Average classification accuracy: 0.36666666666666664
+Average training time 4.650s
+Best classification accuracy: 0.8
+Average classification accuracy: 0.8
 
 Heart metrics
-Training took: 5.686 seconds
-Classification accuracy: 0.6793478260869565
+Average training time 91.913s
+Best classification accuracy: 0.7771739130434783
+Average classification accuracy: 0.7608695652173914
 
 Rice metrics
-Training took: 6.778 seconds
-Classification accuracy: 0.7834645669291339
+Average training time 49.366s
+Best classification accuracy: 0.7874015748031497
+Average classification accuracy: 0.5354330708661418
 

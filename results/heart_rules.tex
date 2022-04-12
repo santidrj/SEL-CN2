@@ -1,21 +1,323 @@
-IF ChestPainType = ATA $\land$ Oldpeak = (-2.61, 0.0] $\implies$ No [0.080, 0.949]
+IF ChestPainType = ATA $\land$ Age = (27.0, 42.0] $\implies$ No [0.046, 1.000]
 
-IF ChestPainType = ATA $\land$ Age = (42.0, 48.0] $\implies$ No [0.033, 0.958]
+IF ST_Slope = Up $\land$ ChestPainType = NAP $\land$ Age = (27.0, 42.0] $\implies$ No [0.020, 1.000]
 
-IF Oldpeak = (2.0, 6.2] $\land$ Cholesterol = (-1.0, 182.0] $\implies$ Yes [0.027, 0.950]
+IF ExerciseAngina = Y $\land$ FastingBS = 1 $\implies$ Yes [0.019, 1.000]
 
-IF ChestPainType = ATA $\land$ Age = (48.0, 53.0] $\implies$ No [0.026, 0.947]
+IF ChestPainType = ATA $\land$ Cholesterol = (182.0, 212.0] $\implies$ No [0.018, 1.000]
 
-IF Oldpeak = (2.0, 6.2] $\land$ ChestPainType = ASY $\implies$ Yes [0.022, 0.875]
+IF Age = (59.0, 63.0] $\land$ RestingBP = (79.0, 115.0] $\implies$ Yes [0.018, 1.000]
 
-IF MaxHR = (59.0, 110.0] $\land$ Age = (63.0, 77.0] $\implies$ Yes [0.020, 0.933]
+IF ST_Slope = Up $\land$ Age = (53.0, 56.0] $\land$ RestingECG = Normal $\implies$ No [0.018, 1.000]
 
-IF Oldpeak = (2.0, 6.2] $\land$ Age = (59.0, 63.0] $\implies$ Yes [0.016, 0.917]
+IF MaxHR = (59.0, 110.0] $\land$ RestingBP = (140.0, 150.0] $\implies$ Yes [0.016, 1.000]
 
-IF Oldpeak = (2.0, 6.2] $\land$ RestingBP = (150.0, 200.0] $\implies$ Yes [0.015, 0.909]
+IF MaxHR = (59.0, 110.0] $\land$ RestingBP = (150.0, 200.0] $\implies$ Yes [0.016, 1.000]
 
-IF Oldpeak = (0.0, 0.1] $\implies$ No [0.014, 0.600]
+IF Oldpeak = (2.0, 6.2] $\land$ Age = (53.0, 56.0] $\implies$ Yes [0.015, 1.000]
 
-IF Oldpeak = (2.0, 6.2] $\land$ Age = (63.0, 77.0] $\implies$ Yes [0.010, 0.857]
+IF Oldpeak = (2.0, 6.2] $\land$ RestingBP = (135.0, 140.0] $\implies$ Yes [0.015, 1.000]
 
-IF * $\implies$ Yes [0.737, 0.582]
+IF ST_Slope = Up $\land$ ChestPainType = ATA $\land$ RestingBP = (135.0, 140.0] $\implies$ No [0.015, 1.000]
+
+IF Cholesterol = (233.0, 260.0] $\land$ Age = (42.0, 48.0] $\implies$ No [0.015, 0.727]
+
+IF RestingBP = (150.0, 200.0] $\implies$ Yes [0.015, 0.727]
+
+IF MaxHR = (59.0, 110.0] $\land$ Cholesterol = (260.0, 289.0] $\implies$ Yes [0.014, 1.000]
+
+IF Oldpeak = (2.0, 6.2] $\land$ Age = (56.0, 59.0] $\implies$ Yes [0.012, 1.000]
+
+IF ExerciseAngina = Y $\land$ Age = (42.0, 48.0] $\implies$ Yes [0.012, 0.889]
+
+IF ChestPainType = ATA $\land$ RestingBP = (79.0, 115.0] $\implies$ No [0.011, 1.000]
+
+IF ChestPainType = NAP $\land$ Age = (27.0, 42.0] $\implies$ No [0.011, 1.000]
+
+IF FastingBS = 1 $\land$ MaxHR = (110.0, 121.0] $\implies$ Yes [0.011, 1.000]
+
+IF FastingBS = 1 $\implies$ Yes [0.011, 1.000]
+
+IF ExerciseAngina = Y $\land$ Age = (63.0, 77.0] $\implies$ Yes [0.011, 1.000]
+
+IF Sex = F $\land$ RestingBP = (79.0, 115.0] $\implies$ No [0.011, 0.875]
+
+IF Age = (53.0, 56.0] $\land$ ChestPainType = ASY $\implies$ Yes [0.011, 0.875]
+
+IF ChestPainType = ATA $\land$ RestingBP = (130.0, 135.0] $\implies$ No [0.010, 1.000]
+
+IF Oldpeak = (1.4, 2.0] $\land$ Cholesterol = (233.0, 260.0] $\land$ Sex = M $\implies$ Yes [0.010, 1.000]
+
+IF Oldpeak = (2.0, 6.2] $\land$ RestingBP = (150.0, 200.0] $\implies$ Yes [0.010, 1.000]
+
+IF Age = (59.0, 63.0] $\land$ RestingBP = (140.0, 150.0] $\implies$ Yes [0.010, 1.000]
+
+IF Sex = F $\land$ ST_Slope = Up $\land$ Cholesterol = (289.0, 603.0] $\implies$ No [0.010, 1.000]
+
+IF Age = (59.0, 63.0] $\land$ ST_Slope = Up $\implies$ No [0.010, 0.857]
+
+IF Cholesterol = (-1.0, 182.0] $\land$ Age = (56.0, 59.0] $\implies$ Yes [0.010, 1.000]
+
+IF MaxHR = (132.0, 143.0] $\land$ Sex = M $\implies$ Yes [0.010, 1.000]
+
+IF Cholesterol = (212.0, 233.0] $\implies$ No [0.010, 0.714]
+
+IF Oldpeak = (2.0, 6.2] $\land$ ST_Slope = Up $\implies$ Yes [0.008, 0.833]
+
+IF MaxHR = (165.0, 202.0] $\land$ RestingBP = (140.0, 150.0] $\implies$ No [0.008, 1.000]
+
+IF ST_Slope = Up $\land$ Cholesterol = (212.0, 233.0] $\land$ Age = (42.0, 48.0] $\implies$ No [0.008, 1.000]
+
+IF FastingBS = 1 $\land$ RestingBP = (115.0, 120.0] $\land$ ST_Slope = Flat $\implies$ Yes [0.008, 1.000]
+
+IF ST_Slope = Up $\land$ Sex = F $\land$ Age = (53.0, 56.0] $\implies$ No [0.008, 1.000]
+
+IF FastingBS = 1 $\land$ RestingBP = (79.0, 115.0] $\implies$ Yes [0.008, 1.000]
+
+IF Oldpeak = (2.0, 6.2] $\land$ RestingBP = (115.0, 120.0] $\implies$ Yes [0.007, 1.000]
+
+IF ChestPainType = ATA $\land$ Cholesterol = (212.0, 233.0] $\land$ Age = (42.0, 48.0] $\implies$ No [0.007, 1.000]
+
+IF ChestPainType = ATA $\land$ Cholesterol = (212.0, 233.0] $\land$ Sex = F $\implies$ No [0.007, 1.000]
+
+IF ExerciseAngina = Y $\land$ Age = (53.0, 56.0] $\land$ Cholesterol = (-1.0, 182.0] $\implies$ Yes [0.007, 1.000]
+
+IF RestingBP = (130.0, 135.0] $\land$ MaxHR = (110.0, 121.0] $\implies$ Yes [0.007, 1.000]
+
+IF ExerciseAngina = Y $\land$ Age = (27.0, 42.0] $\land$ RestingBP = (79.0, 115.0] $\implies$ Yes [0.007, 1.000]
+
+IF ST_Slope = Up $\land$ ChestPainType = NAP $\land$ Age = (56.0, 59.0] $\implies$ No [0.007, 1.000]
+
+IF RestingBP = (140.0, 150.0] $\land$ Oldpeak = (2.0, 6.2] $\implies$ Yes [0.007, 1.000]
+
+IF MaxHR = (59.0, 110.0] $\land$ Age = (63.0, 77.0] $\implies$ Yes [0.007, 0.800]
+
+IF Sex = F $\land$ Age = (42.0, 48.0] $\implies$ No [0.007, 1.000]
+
+IF FastingBS = 1 $\land$ Age = (53.0, 56.0] $\implies$ Yes [0.007, 1.000]
+
+IF ChestPainType = NAP $\land$ FastingBS = 1 $\implies$ No [0.007, 1.000]
+
+IF FastingBS = 1 $\land$ Age = (59.0, 63.0] $\implies$ Yes [0.007, 1.000]
+
+IF ST_Slope = Up $\land$ MaxHR = (132.0, 143.0] $\implies$ No [0.007, 1.000]
+
+IF MaxHR = (143.0, 153.0] $\implies$ Yes [0.007, 0.600]
+
+IF ExerciseAngina = Y $\implies$ Yes [0.007, 1.000]
+
+IF RestingBP = (120.0, 130.0] $\implies$ No [0.007, 0.800]
+
+IF ST_Slope = Up $\implies$ No [0.007, 0.800]
+
+IF MaxHR = (165.0, 202.0] $\land$ RestingBP = (115.0, 120.0] $\land$ ChestPainType = ATA $\implies$ No [0.005, 1.000]
+
+IF ChestPainType = ATA $\land$ Age = (42.0, 48.0] $\land$ Sex = F $\implies$ No [0.005, 1.000]
+
+IF ST_Slope = Flat $\land$ RestingBP = (130.0, 135.0] $\land$ Age = (48.0, 53.0] $\implies$ Yes [0.005, 1.000]
+
+IF ExerciseAngina = Y $\land$ RestingBP = (115.0, 120.0] $\land$ Age = (59.0, 63.0] $\implies$ Yes [0.005, 1.000]
+
+IF MaxHR = (165.0, 202.0] $\land$ RestingECG = ST $\implies$ No [0.005, 1.000]
+
+IF MaxHR = (59.0, 110.0] $\land$ Cholesterol = (233.0, 260.0] $\implies$ No [0.005, 1.000]
+
+IF Age = (59.0, 63.0] $\land$ RestingECG = LVH $\land$ RestingBP = (120.0, 130.0] $\implies$ Yes [0.005, 1.000]
+
+IF MaxHR = (59.0, 110.0] $\land$ ChestPainType = ATA $\implies$ Yes [0.005, 1.000]
+
+IF ST_Slope = Flat $\land$ RestingBP = (130.0, 135.0] $\land$ FastingBS = 1 $\implies$ Yes [0.005, 1.000]
+
+IF FastingBS = 1 $\land$ Age = (27.0, 42.0] $\implies$ Yes [0.005, 1.000]
+
+IF RestingBP = (130.0, 135.0] $\land$ Cholesterol = (289.0, 603.0] $\implies$ Yes [0.005, 1.000]
+
+IF ExerciseAngina = Y $\land$ RestingBP = (115.0, 120.0] $\land$ Age = (42.0, 48.0] $\implies$ Yes [0.005, 1.000]
+
+IF MaxHR = (110.0, 121.0] $\land$ RestingBP = (135.0, 140.0] $\land$ ChestPainType = ASY $\implies$ Yes [0.005, 1.000]
+
+IF RestingBP = (140.0, 150.0] $\land$ Age = (56.0, 59.0] $\land$ Sex = M $\implies$ Yes [0.005, 1.000]
+
+IF RestingBP = (140.0, 150.0] $\land$ MaxHR = (110.0, 121.0] $\land$ Age = (63.0, 77.0] $\implies$ Yes [0.005, 1.000]
+
+IF ST_Slope = Up $\land$ Sex = F $\land$ Cholesterol = (260.0, 289.0] $\implies$ No [0.005, 1.000]
+
+IF MaxHR = (143.0, 153.0] $\land$ ST_Slope = Up $\implies$ No [0.005, 1.000]
+
+IF Oldpeak = (1.4, 2.0] $\land$ RestingECG = ST $\implies$ Yes [0.005, 1.000]
+
+IF Age = (56.0, 59.0] $\land$ ExerciseAngina = Y $\implies$ No [0.005, 1.000]
+
+IF MaxHR = (110.0, 121.0] $\land$ RestingECG = Normal $\implies$ Yes [0.005, 1.000]
+
+IF Cholesterol = (289.0, 603.0] $\land$ Sex = M $\land$ Oldpeak = (1.4, 2.0] $\implies$ Yes [0.005, 1.000]
+
+IF MaxHR = (165.0, 202.0] $\land$ ChestPainType = ASY $\implies$ Yes [0.005, 1.000]
+
+IF Oldpeak = (0.0, 0.1] $\land$ Age = (48.0, 53.0] $\implies$ No [0.004, 1.000]
+
+IF ST_Slope = Up $\land$ RestingBP = (130.0, 135.0] $\land$ Age = (53.0, 56.0] $\implies$ No [0.004, 1.000]
+
+IF FastingBS = 1 $\land$ MaxHR = (121.0, 132.0] $\land$ Age = (27.0, 42.0] $\implies$ Yes [0.004, 1.000]
+
+IF MaxHR = (59.0, 110.0] $\land$ Age = (63.0, 77.0] $\land$ RestingBP = (135.0, 140.0] $\implies$ Yes [0.004, 1.000]
+
+IF MaxHR = (165.0, 202.0] $\land$ Cholesterol = (-1.0, 182.0] $\land$ ChestPainType = NAP $\implies$ No [0.004, 1.000]
+
+IF Age = (59.0, 63.0] $\land$ Cholesterol = (260.0, 289.0] $\implies$ Yes [0.004, 1.000]
+
+IF FastingBS = 1 $\land$ Age = (53.0, 56.0] $\land$ RestingBP = (135.0, 140.0] $\implies$ Yes [0.004, 1.000]
+
+IF Sex = F $\land$ Age = (42.0, 48.0] $\land$ RestingBP = (120.0, 130.0] $\implies$ No [0.004, 1.000]
+
+IF ChestPainType = NAP $\land$ MaxHR = (132.0, 143.0] $\land$ Age = (59.0, 63.0] $\implies$ No [0.004, 1.000]
+
+IF Age = (63.0, 77.0] $\land$ RestingBP = (115.0, 120.0] $\land$ Oldpeak = (0.1, 1.0] $\implies$ No [0.004, 1.000]
+
+IF Sex = F $\land$ MaxHR = (110.0, 121.0] $\land$ Age = (48.0, 53.0] $\implies$ No [0.004, 1.000]
+
+IF ChestPainType = ATA $\land$ MaxHR = (153.0, 165.0] $\land$ RestingECG = Normal $\implies$ No [0.004, 1.000]
+
+IF RestingBP = (140.0, 150.0] $\land$ Age = (48.0, 53.0] $\land$ RestingECG = Normal $\land$ ExerciseAngina = N $\implies$ Yes [0.004, 1.000]
+
+IF FastingBS = 1 $\land$ Age = (42.0, 48.0] $\implies$ Yes [0.004, 1.000]
+
+IF Age = (42.0, 48.0] $\land$ ChestPainType = NAP $\implies$ No [0.004, 1.000]
+
+IF ChestPainType = ATA $\land$ Age = (56.0, 59.0] $\implies$ Yes [0.004, 1.000]
+
+IF Cholesterol = (233.0, 260.0] $\land$ ChestPainType = NAP $\implies$ No [0.004, 1.000]
+
+IF RestingBP = (150.0, 200.0] $\land$ Age = (48.0, 53.0] $\implies$ Yes [0.004, 1.000]
+
+IF Age = (59.0, 63.0] $\land$ Cholesterol = (-1.0, 182.0] $\implies$ Yes [0.004, 1.000]
+
+IF RestingBP = (140.0, 150.0] $\land$ ChestPainType = NAP $\implies$ No [0.004, 1.000]
+
+IF ST_Slope = Up $\land$ Sex = F $\implies$ No [0.004, 1.000]
+
+IF Cholesterol = (233.0, 260.0] $\land$ Sex = M $\land$ ExerciseAngina = Y $\implies$ Yes [0.004, 1.000]
+
+IF Oldpeak = (1.0, 1.4] $\land$ Sex = F $\implies$ No [0.004, 1.000]
+
+IF RestingECG = ST $\implies$ No [0.004, 1.000]
+
+IF ChestPainType = ATA $\land$ Age = (48.0, 53.0] $\land$ Cholesterol = (260.0, 289.0] $\implies$ No [0.003, 1.000]
+
+IF Oldpeak = (0.0, 0.1] $\land$ MaxHR = (153.0, 165.0] $\implies$ Yes [0.003, 1.000]
+
+IF Sex = F $\land$ RestingBP = (130.0, 135.0] $\land$ FastingBS = 0 $\implies$ No [0.003, 1.000]
+
+IF ExerciseAngina = Y $\land$ Oldpeak = (0.0, 0.1] $\implies$ Yes [0.003, 1.000]
+
+IF Oldpeak = (0.0, 0.1] $\implies$ No [0.003, 1.000]
+
+IF Oldpeak = (2.0, 6.2] $\land$ RestingBP = (130.0, 135.0] $\implies$ Yes [0.003, 1.000]
+
+IF Age = (59.0, 63.0] $\land$ ChestPainType = ATA $\implies$ Yes [0.003, 1.000]
+
+IF RestingBP = (150.0, 200.0] $\land$ MaxHR = (143.0, 153.0] $\land$ Age = (53.0, 56.0] $\implies$ Yes [0.003, 1.000]
+
+IF Oldpeak = (2.0, 6.2] $\land$ Cholesterol = (289.0, 603.0] $\implies$ Yes [0.003, 1.000]
+
+IF ST_Slope = Flat $\land$ RestingBP = (150.0, 200.0] $\land$ Age = (42.0, 48.0] $\implies$ Yes [0.003, 1.000]
+
+IF Oldpeak = (1.0, 1.4] $\land$ Age = (42.0, 48.0] $\implies$ No [0.003, 1.000]
+
+IF ChestPainType = TA $\land$ ST_Slope = Down $\implies$ No [0.003, 1.000]
+
+IF ST_Slope = Down $\land$ Age = (42.0, 48.0] $\implies$ Yes [0.003, 1.000]
+
+IF Sex = F $\land$ ChestPainType = ATA $\land$ Age = (63.0, 77.0] $\implies$ No [0.003, 1.000]
+
+IF ExerciseAngina = Y $\land$ Oldpeak = (2.0, 6.2] $\implies$ No [0.003, 1.000]
+
+IF FastingBS = 1 $\land$ RestingBP = (130.0, 135.0] $\implies$ No [0.003, 1.000]
+
+IF RestingBP = (130.0, 135.0] $\land$ Age = (42.0, 48.0] $\implies$ No [0.003, 1.000]
+
+IF ExerciseAngina = Y $\land$ Age = (53.0, 56.0] $\land$ Sex = F $\implies$ Yes [0.003, 1.000]
+
+IF Oldpeak = (2.0, 6.2] $\land$ ChestPainType = ASY $\implies$ Yes [0.003, 1.000]
+
+IF ExerciseAngina = Y $\land$ ChestPainType = TA $\implies$ No [0.003, 1.000]
+
+IF RestingBP = (130.0, 135.0] $\land$ ExerciseAngina = Y $\implies$ Yes [0.003, 1.000]
+
+IF RestingBP = (130.0, 135.0] $\land$ Sex = M $\land$ ChestPainType = ASY $\land$ ExerciseAngina = N $\land$ Age = (56.0, 59.0] $\implies$ No [0.003, 1.000]
+
+IF RestingBP = (130.0, 135.0] $\land$ RestingECG = Normal $\implies$ Yes [0.003, 1.000]
+
+IF ST_Slope = Down $\land$ Age = (56.0, 59.0] $\implies$ Yes [0.003, 1.000]
+
+IF ST_Slope = Flat $\land$ Age = (42.0, 48.0] $\land$ Cholesterol = (212.0, 233.0] $\implies$ Yes [0.003, 1.000]
+
+IF ExerciseAngina = Y $\land$ ChestPainType = ATA $\implies$ Yes [0.003, 1.000]
+
+IF Oldpeak = (2.0, 6.2] $\land$ FastingBS = 1 $\implies$ No [0.003, 1.000]
+
+IF Oldpeak = (2.0, 6.2] $\implies$ Yes [0.003, 1.000]
+
+IF ST_Slope = Down $\land$ MaxHR = (59.0, 110.0] $\implies$ Yes [0.003, 1.000]
+
+IF ST_Slope = Down $\land$ ChestPainType = ASY $\land$ MaxHR = (110.0, 121.0] $\implies$ No [0.003, 1.000]
+
+IF ST_Slope = Down $\land$ Age = (48.0, 53.0] $\implies$ No [0.003, 1.000]
+
+IF Cholesterol = (260.0, 289.0] $\land$ MaxHR = (132.0, 143.0] $\land$ Age = (63.0, 77.0] $\implies$ Yes [0.003, 1.000]
+
+IF FastingBS = 1 $\land$ Age = (56.0, 59.0] $\implies$ No [0.003, 1.000]
+
+IF FastingBS = 1 $\land$ RestingECG = LVH $\implies$ Yes [0.003, 1.000]
+
+IF ChestPainType = ATA $\land$ Cholesterol = (212.0, 233.0] $\implies$ No [0.003, 1.000]
+
+IF FastingBS = 1 $\land$ ChestPainType = TA $\implies$ No [0.003, 1.000]
+
+IF Sex = F $\land$ MaxHR = (59.0, 110.0] $\implies$ No [0.003, 1.000]
+
+IF Age = (42.0, 48.0] $\land$ ChestPainType = ATA $\implies$ No [0.003, 1.000]
+
+IF ChestPainType = ATA $\land$ Cholesterol = (-1.0, 182.0] $\implies$ No [0.003, 1.000]
+
+IF Age = (63.0, 77.0] $\land$ RestingECG = Normal $\land$ Oldpeak = (0.1, 1.0] $\implies$ No [0.003, 1.000]
+
+IF Cholesterol = (233.0, 260.0] $\land$ Sex = F $\implies$ Yes [0.003, 1.000]
+
+IF Age = (42.0, 48.0] $\land$ Cholesterol = (289.0, 603.0] $\implies$ Yes [0.003, 1.000]
+
+IF Age = (42.0, 48.0] $\land$ RestingECG = LVH $\implies$ Yes [0.003, 1.000]
+
+IF MaxHR = (143.0, 153.0] $\land$ RestingECG = Normal $\land$ Cholesterol = (212.0, 233.0] $\implies$ No [0.003, 1.000]
+
+IF Age = (63.0, 77.0] $\land$ RestingBP = (140.0, 150.0] $\implies$ Yes [0.003, 1.000]
+
+IF Age = (59.0, 63.0] $\land$ Sex = M $\implies$ Yes [0.003, 1.000]
+
+IF Age = (42.0, 48.0] $\land$ Cholesterol = (182.0, 212.0] $\implies$ No [0.003, 1.000]
+
+IF MaxHR = (143.0, 153.0] $\land$ ChestPainType = ASY $\land$ ST_Slope = Flat $\land$ Oldpeak = (0.1, 1.0] $\implies$ No [0.003, 1.000]
+
+IF Age = (53.0, 56.0] $\implies$ No [0.003, 1.000]
+
+IF Cholesterol = (212.0, 233.0] $\land$ Age = (27.0, 42.0] $\implies$ No [0.003, 1.000]
+
+IF RestingBP = (135.0, 140.0] $\land$ Cholesterol = (-1.0, 182.0] $\implies$ Yes [0.003, 1.000]
+
+IF ExerciseAngina = Y $\land$ RestingBP = (115.0, 120.0] $\implies$ Yes [0.003, 1.000]
+
+IF RestingBP = (140.0, 150.0] $\land$ Cholesterol = (289.0, 603.0] $\implies$ Yes [0.003, 1.000]
+
+IF Age = (63.0, 77.0] $\implies$ Yes [0.003, 1.000]
+
+IF Oldpeak = (1.4, 2.0] $\implies$ No [0.003, 1.000]
+
+IF RestingBP = (135.0, 140.0] $\land$ Cholesterol = (182.0, 212.0] $\implies$ No [0.003, 1.000]
+
+IF Oldpeak = (0.1, 1.0] $\land$ ST_Slope = Up $\implies$ Yes [0.003, 1.000]
+
+IF RestingBP = (135.0, 140.0] $\land$ MaxHR = (165.0, 202.0] $\implies$ No [0.003, 1.000]
+
+IF RestingBP = (79.0, 115.0] $\implies$ Yes [0.003, 1.000]
+
+IF * $\implies$ Yes [0.003, 0.500]

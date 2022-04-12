@@ -1,6 +1,5 @@
 import os
 import warnings
-from operator import attrgetter
 
 import numpy as np
 import pandas as pd
@@ -8,13 +7,14 @@ from scipy.stats import entropy
 
 
 class CN2:
-    def __init__(self, max_star_size=5, min_significance=0.5):
+    def __init__(self, max_star_size=5, min_significance=0.5, seed=None):
         self.max_star_size = max_star_size
         self.min_significance = min_significance
         self.E = None
         self.training = None
         self.rule_list = []
         self.bins = {}
+        self.seed = seed
 
     def fit(self, X, y, n_bins=4, fixed_bin_size=True):
         self._validate_fit_input(X, y)
@@ -168,7 +168,7 @@ class CN2:
             for value in self.E[attr].unique():
                 self.selectors.append({attr: value})
 
-    def _find_best_complex(self):
+    def find_best_complex(self):
         best_cpx = None
         best_entropy = np.inf
         best_significance = np.NINF
@@ -191,21 +191,21 @@ class CN2:
                     )
 
                     cpx_entropy = entropy(np.array(covered_prob_distribution))
-                    # Todo: check how to compute class probability distribution
-                    # class_prob_distribution = self.E['class'].loc[
-                    #     self.E['class'].isin(covered_prob_distribution.keys())].value_counts(sort=False, normalize=True)
-                    # class_prob_distribution = self.training['class'].sample(len(covered_examples), replace=False).value_counts(
-                    #     sort=False, normalize=True)
                     class_prob_distribution = (
                         self.training["class"]
-                        .loc[
-                            self.training["class"].isin(
-                                covered_prob_distribution.keys()
-                            )
-                        ]
-                        .sample(len(covered_examples), replace=False)
+                        .sample(len(covered_examples), replace=False, random_state=self.seed)
                         .value_counts(sort=False, normalize=True)
                     )
+                    # class_prob_distribution = (
+                    #     self.training["class"]
+                    #     .loc[
+                    #         self.training["class"].isin(
+                    #             covered_prob_distribution.keys()
+                    #         )
+                    #     ]
+                    #     .sample(len(covered_examples), replace=False)
+                    #     .value_counts(sort=False, normalize=True)
+                    # )
 
                     cpx_significance = 2 * np.sum(
                         covered_prob_distribution
