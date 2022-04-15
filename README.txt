@@ -14,8 +14,8 @@ To run the test you need to create a python virtual environment and install in i
     scipy = "^1.8.0"
     sklearn = "^0.0"
 
-After the installation you can run the test with the runner.py script.
-!!!It is necessary that the runner.py is in the same location that the source and data folders!!!
+After the installation, you can run the test with the runner.py script.
+!!!The runner.py must be in the same location that the source and data folders!!!
 
 usage: runner.py [-h] [--short] [--medium] [--long] [--iterations ITERATIONS] [--seed SEED]
 
