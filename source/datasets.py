@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from scipy.io import arff
 
-DATA_DIR = "datasets"
+DATA_DIR = "data"
 
 
 def load_iris():

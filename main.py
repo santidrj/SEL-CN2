@@ -19,13 +19,14 @@ parser.add_argument("--seed", type=int, default=None, help="seed for reproducibl
 args = parser.parse_args()
 
 N_ITER = args.iterations
+SEED = args.seed
 
 def run_short(file):
     print(
             """
-#####################
-# LOAD IRIS DATASET #
-#####################
+#########################
+# RUN WITH IRIS DATASET #
+#########################
     """
         )
     best_cn = None
@@ -33,7 +34,7 @@ def run_short(file):
     avg_acc = 0
     avg_time = 0
     for _ in range(N_ITER):
-        cn = CN2(5, 0.7)
+        cn = CN2(5, 0.7, SEED)
         x, y = load_iris()
         x_train, x_test, y_train, y_test = train_test_split(
                 x, y, test_size=0.2, random_state=1
@@ -71,9 +72,9 @@ def run_short(file):
 def run_medium(file):
     print(
         """
-######################
-# LOAD HEART DATASET #
-######################
+##########################
+# RUN WITH HEART DATASET #
+##########################
 """
     )
     best_cn = None
@@ -81,7 +82,7 @@ def run_medium(file):
     avg_acc = 0
     avg_time = 0
     for _ in range(N_ITER):
-        cn = CN2(5, 0.7)
+        cn = CN2(5, 0.7, SEED)
         x, y = load_heart()
         x_train, x_test, y_train, y_test = train_test_split(
             x, y, test_size=0.2, random_state=1
@@ -120,9 +121,9 @@ def run_medium(file):
 def run_long(file):
     print(
         """
-#####################################
-# LOAD RICE OSMANCIK CAMMEO DATASET #
-#####################################
+#########################################
+# RUN WITH RICE OSMANCIK CAMMEO DATASET #
+#########################################
 """
     )
     best_cn = None
@@ -130,7 +131,7 @@ def run_long(file):
     avg_acc = 0
     avg_time = 0
     for _ in range(N_ITER):
-        cn = CN2(5, 0.7)
+        cn = CN2(5, 0.7, SEED)
         x, y = load_rice()
         x_train, x_test, y_train, y_test = train_test_split(
             x, y, test_size=0.2, random_state=1
