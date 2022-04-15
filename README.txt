@@ -4,7 +4,7 @@ The zip is structured as follows:
     - documentation     [The folder contains a PDF report with the pseudocode of this implementation, a discussion over the results and how to execute the code]
     - data              [The folder contains three datasets of different sizes used to test the CN2 algorithm]
     - source            [The folder contains the implementation of the CN2 algorithm in Python and an auxiliary file to load the data]
-    - main.py           [An executable python file to test the CN2 algorithm]
+    - runner.py           [An executable python file to test the CN2 algorithm]
     - README.txt        [A README explaining the contents of the zip file]
 
 Running the test
@@ -14,10 +14,10 @@ To run the test you need to create a python virtual environment and install in i
     scipy = "^1.8.0"
     sklearn = "^0.0"
 
-After the installation you can run the test with the main.py script.
-!!!It is necessary that the main.py is in the same location that the source and data folders!!!
+After the installation you can run the test with the runner.py script.
+!!!It is necessary that the runner.py is in the same location that the source and data folders!!!
 
-usage: main.py [-h] [--short] [--medium] [--long] [--iterations ITERATIONS] [--seed SEED]
+usage: runner.py [-h] [--short] [--medium] [--long] [--iterations ITERATIONS] [--seed SEED]
 
 optional arguments:
   -h, --help            show this help message and exit

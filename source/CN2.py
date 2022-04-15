@@ -23,7 +23,9 @@ class CN2:
 
         # Replace missing values with the most common value of the attribute.
         for c in self.E.columns:
-            self.E[c] = self.E[c].replace("?", self.E[c].value_counts().idxmax())
+            mode = self.E[c].value_counts().idxmax()
+            self.E[c] = self.E[c].replace("?", mode)
+            self.E[c] = self.E[c].fillna(mode)
 
         self.training = self.E.copy()
         self._init_selectors()
