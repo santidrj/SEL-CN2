@@ -141,6 +141,7 @@ class CN2:
             rules += f"IF * THEN {default_rule[1]} [rule coverage = {default_rule[3]:.3f}, precision = {default_rule[2]:.3f}]\n"
         else:
             rules += f"IF * $\\implies$ {default_rule[1]} [{default_rule[3]:.3f}, {default_rule[2]:.3f}]\n"
+            rules.replace('_', '\\_')
         return rules
 
     def _validate_fit_input(self, X, y):
@@ -168,7 +169,7 @@ class CN2:
             for value in self.E[attr].unique():
                 self.selectors.append({attr: value})
 
-    def find_best_complex(self):
+    def _find_best_complex(self):
         best_cpx = None
         best_entropy = np.inf
         best_significance = np.NINF
@@ -247,7 +248,6 @@ class CN2:
             star = aux_df.cpx.to_list()
 
             # If star is empty exit the loop
-            # if not star or (best_entropy == 0 and best_significance >= 1):
             if not star:
                 break
 
