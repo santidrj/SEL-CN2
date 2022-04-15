@@ -167,6 +167,9 @@ def run_long(file):
     print(best_accuracy)
     print(accuracy)
 
+if not os.path.exists("results"):
+    os.mkdir("results")
+
 with open(os.path.join("results", "metrics.txt"), "w") as f:
     if not (args.short or args.medium or args.long):
         run_short(f)
