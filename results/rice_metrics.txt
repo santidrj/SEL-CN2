@@ -1,0 +1,5 @@
+Rice metrics
+Average training time 10.157s
+Best classification accuracy: 0.7874015748031497
+Average classification accuracy: 0.7362204724409449
+

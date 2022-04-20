@@ -1,0 +1,5 @@
+Iris metrics
+Average training time 0.887s
+Best classification accuracy: 0.8333333333333334
+Average classification accuracy: 0.6666666666666667
+

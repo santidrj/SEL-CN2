@@ -143,7 +143,7 @@ class CN2:
             rules += f"IF * THEN {default_rule[1]} [rule coverage = {default_rule[3]:.3f}, precision = {default_rule[2]:.3f}]\n"
         else:
             rules += f"IF * $\\implies$ {default_rule[1]} [{default_rule[3]:.3f}, {default_rule[2]:.3f}]\n"
-            rules = rules.replace('_', '\\_')
+            rules = rules.replace("_", "\\_")
         return rules
 
     def _validate_fit_input(self, X, y):
@@ -196,7 +196,14 @@ class CN2:
                     cpx_entropy = entropy(np.array(covered_prob_distribution))
                     class_prob_distribution = (
                         self.training["class"]
-                        .sample(len(covered_examples), replace=False, random_state=self.seed)
+                        .loc[
+                            self.training["class"].isin(
+                                covered_prob_distribution.keys()
+                            )
+                        ]
+                        .sample(
+                            len(covered_examples), replace=False, random_state=self.seed
+                        )
                         .value_counts(sort=False, normalize=True)
                     )
                     # class_prob_distribution = (

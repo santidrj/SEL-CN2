@@ -10,25 +10,40 @@ from source.datasets import load_heart, load_iris, load_rice
 
 parser = argparse.ArgumentParser()
 group = parser.add_argument_group("Datasets", "By default all datasets are used")
-group.add_argument("--short", "-s", action="store_true", help="run CN2 with short dataset")
-group.add_argument("--medium", "-m", action="store_true", help="run CN2 with medium dataset")
-group.add_argument("--long", "-l", action="store_true", help="run CN2 with long dataset")
-parser.add_argument("--iterations", "-i", type=int, default=5, help="number of times the algorithm is executed (default 5)")
-parser.add_argument("--seed", type=int, default=None, help="seed for reproducible results")
+group.add_argument(
+    "--short", "-s", action="store_true", help="run CN2 with short dataset"
+)
+group.add_argument(
+    "--medium", "-m", action="store_true", help="run CN2 with medium dataset"
+)
+group.add_argument(
+    "--long", "-l", action="store_true", help="run CN2 with long dataset"
+)
+parser.add_argument(
+    "--iterations",
+    "-i",
+    type=int,
+    default=5,
+    help="number of times the algorithm is executed (default 5)",
+)
+parser.add_argument(
+    "--seed", type=int, default=None, help="seed for reproducible results"
+)
 
 args = parser.parse_args()
 
 N_ITER = args.iterations
 SEED = args.seed
 
+
 def run_short(file):
     print(
-            """
+        """
 #########################
 # RUN WITH IRIS DATASET #
 #########################
     """
-        )
+    )
     best_cn = None
     best_acc = -1
     avg_acc = 0
@@ -37,8 +52,8 @@ def run_short(file):
         cn = CN2(5, 0.7, SEED)
         x, y = load_iris()
         x_train, x_test, y_train, y_test = train_test_split(
-                x, y, test_size=0.2, random_state=1
-            )
+            x, y, test_size=0.2, random_state=1
+        )
         start = time.perf_counter()
         cn.fit(x_train, y_train, n_bins=8, fixed_bin_size=True)
         avg_time += time.perf_counter() - start
@@ -59,7 +74,7 @@ def run_short(file):
 
     seconds = f"Average training time {avg_time:.3f}s\n"
     best_accuracy = f"Best classification accuracy: {best_acc}\n"
-    accuracy = f"Average classification accuracy: {acc_score}\n"
+    accuracy = f"Average classification accuracy: {avg_acc}\n"
     file.write("Iris metrics\n")
     file.write(seconds)
     file.write(best_accuracy)
@@ -68,6 +83,7 @@ def run_short(file):
     print(seconds)
     print(best_accuracy)
     print(accuracy)
+
 
 def run_medium(file):
     print(
@@ -108,7 +124,7 @@ def run_medium(file):
 
     seconds = f"Average training time {avg_time:.3f}s\n"
     best_accuracy = f"Best classification accuracy: {best_acc}\n"
-    accuracy = f"Average classification accuracy: {acc_score}\n"
+    accuracy = f"Average classification accuracy: {avg_acc}\n"
     file.write("Heart metrics\n")
     file.write(seconds)
     file.write(best_accuracy)
@@ -117,6 +133,7 @@ def run_medium(file):
     print(seconds)
     print(best_accuracy)
     print(accuracy)
+
 
 def run_long(file):
     print(
@@ -157,7 +174,7 @@ def run_long(file):
 
     seconds = f"Average training time {avg_time:.3f}s\n"
     best_accuracy = f"Best classification accuracy: {best_acc}\n"
-    accuracy = f"Average classification accuracy: {acc_score}\n"
+    accuracy = f"Average classification accuracy: {avg_acc}\n"
     file.write("Rice metrics\n")
     file.write(seconds)
     file.write(best_accuracy)
@@ -167,20 +184,24 @@ def run_long(file):
     print(best_accuracy)
     print(accuracy)
 
+
 if not os.path.exists("results"):
     os.mkdir("results")
 
-with open(os.path.join("results", "metrics.txt"), "w") as f:
-    if not (args.short or args.medium or args.long):
+if not (args.short or args.medium or args.long):
+    with open(os.path.join("results", "iris_metrics.txt"), "w") as f:
         run_short(f)
+    with open(os.path.join("results", "heart_metrics.txt"), "w") as f:
         run_medium(f)
+    with open(os.path.join("results", "rice_metrics.txt"), "w") as f:
         run_long(f)
-    else:
-        if args.short:
+else:
+    if args.short:
+        with open(os.path.join("results", "iris_metrics.txt"), "w") as f:
             run_short(f)
-        if args.medium:
+    if args.medium:
+        with open(os.path.join("results", "heart_metrics.txt"), "w") as f:
             run_medium(f)
-        if args.long:
+    if args.long:
+        with open(os.path.join("results", "rice_metrics.txt"), "w") as f:
             run_long(f)
-    
-

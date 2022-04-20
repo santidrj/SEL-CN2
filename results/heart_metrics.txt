@@ -1,0 +1,5 @@
+Heart metrics
+Average training time 21.754s
+Best classification accuracy: 0.8043478260869565
+Average classification accuracy: 0.7576086956521739
+
