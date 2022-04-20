@@ -206,16 +206,6 @@ class CN2:
                         )
                         .value_counts(sort=False, normalize=True)
                     )
-                    # class_prob_distribution = (
-                    #     self.training["class"]
-                    #     .loc[
-                    #         self.training["class"].isin(
-                    #             covered_prob_distribution.keys()
-                    #         )
-                    #     ]
-                    #     .sample(len(covered_examples), replace=False)
-                    #     .value_counts(sort=False, normalize=True)
-                    # )
 
                     cpx_significance = 2 * np.sum(
                         covered_prob_distribution
